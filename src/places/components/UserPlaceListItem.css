@@ -51,6 +51,8 @@
 .map-container {
   height: 20rem;
   width: 100%;
+  display: grid;
+  place-items: center;
 }
 
 @media (min-width: 768px) {

@@ -23,7 +23,7 @@ const UserPlaceListItem = (props) => {
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div className="map-container">
-          <h2>LA CARTE</h2>
+          <h2>Purchase Google Maps API for 300$/month</h2>
         </div>
       </Modal>
       <li className="place-item">
