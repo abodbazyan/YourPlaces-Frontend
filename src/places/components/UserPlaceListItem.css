@@ -48,8 +48,19 @@
   margin: 0.5rem;
 }
 
+.map-container {
+  height: 20rem;
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .place-item__image {
     height: 20rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 15rem;
   }
 }
