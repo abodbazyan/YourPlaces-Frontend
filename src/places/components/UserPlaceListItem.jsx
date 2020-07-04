@@ -3,6 +3,7 @@ import React, { useState, Fragment } from 'react';
 import Card from '../../shared/components/UIElements/Card/Card';
 import Button from '../../shared/components/FormElements/Button/Button';
 import Modal from '../../shared/components/UIElements/Modal/Modal';
+import Map from '../../shared/components/UIElements/Map/Map';
 import './UserPlaceListItem.css';
 
 const UserPlaceListItem = (props) => {
@@ -23,7 +24,7 @@ const UserPlaceListItem = (props) => {
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div className="map-container">
-          <h2>Purchase Google Maps API for 300$/month</h2>
+          <Map center={props.coordinates} zoom={16} />
         </div>
       </Modal>
       <li className="place-item">
