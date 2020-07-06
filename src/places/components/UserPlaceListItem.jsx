@@ -8,10 +8,22 @@ import './UserPlaceListItem.css';
 
 const UserPlaceListItem = (props) => {
   const [showMap, setShowMap] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const openMapHandler = () => setShowMap((prevState) => !prevState);
 
   const closeMapHandler = () => setShowMap((prevState) => !prevState);
+
+  const openConfirmModalHandler = () =>
+    setShowConfirmModal((prevState) => !prevState);
+
+  const closeConfirmModalHandler = () =>
+    setShowConfirmModal((prevState) => !prevState);
+
+  const confirmDeleteHandler = () => {
+    // NOTE: send delete request to the backend
+    console.log('Deleted');
+  };
 
   return (
     <Fragment>
@@ -26,6 +38,27 @@ const UserPlaceListItem = (props) => {
         <div className="map-container">
           <Map center={props.coordinates} zoom={16} />
         </div>
+      </Modal>
+      <Modal
+        show={showConfirmModal}
+        onCancel={closeConfirmModalHandler}
+        header="Are you sure?"
+        footerClass="place-item__modal-actions"
+        footer={
+          <Fragment>
+            <Button inverse onClick={closeConfirmModalHandler}>
+              CLOSE
+            </Button>
+            <Button danger onClick={confirmDeleteHandler}>
+              DELETE
+            </Button>
+          </Fragment>
+        }
+      >
+        <p>
+          Do you want to proceed and delete this place? please note that it
+          cannot be undone thereafter.
+        </p>
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
@@ -42,7 +75,9 @@ const UserPlaceListItem = (props) => {
               VIEW ON MAP
             </Button>
             <Button to={`/places/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick={openConfirmModalHandler}>
+              DELETE
+            </Button>
           </div>
         </Card>
       </li>
