@@ -5,9 +5,13 @@ import Button from '../../shared/components/FormElements/Button/Button';
 import Modal from '../../shared/components/UIElements/Modal/Modal';
 import Map from '../../shared/components/UIElements/Map/Map';
 import { AuthContext } from '../../shared/context/auth-context';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner/LoadingSpinner';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal/ErrorModal';
 import './UserPlaceListItem.css';
 
 const UserPlaceListItem = (props) => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const auth = useContext(AuthContext);
@@ -22,13 +26,22 @@ const UserPlaceListItem = (props) => {
   const closeConfirmModalHandler = () =>
     setShowConfirmModal((prevState) => !prevState);
 
-  const confirmDeleteHandler = () => {
-    // NOTE: send delete request to the backend
-    console.log('Deleted');
+  const confirmDeleteHandler = async () => {
+    setShowConfirmModal(false);
+    try {
+      await sendRequest(
+        `http://localhost:8000/api/places/${props.id}`,
+        'DELETE'
+      );
+      props.onDelete(props.id);
+    } catch (err) {
+      // NOTE: Handled in the useHttpClient hook
+    }
   };
 
   return (
     <Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={closeMapHandler}
@@ -64,6 +77,7 @@ const UserPlaceListItem = (props) => {
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item__image">
             <img src={props.image} alt={props.title} />
           </div>
