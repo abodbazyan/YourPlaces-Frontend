@@ -5,6 +5,7 @@ import Button from '../../shared/components/FormElements/Button/Button';
 import Input from '../../shared/components/FormElements/Input/Input';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner/LoadingSpinner';
+import ImageUpload from '../../shared/components/FormElements/ImageUpload/ImageUpload';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -110,15 +111,18 @@ const Auth = () => {
         <hr />
         <form onSubmit={authSubmitHandler}>
           {!isLoginMode && (
-            <Input
-              element="input"
-              id="name"
-              type="text"
-              label="Name"
-              validators={[VALIDATOR_REQUIRE()]}
-              errorText="Please enter your real name"
-              onInput={inputHandler}
-            />
+            <Fragment>
+              <Input
+                element="input"
+                id="name"
+                type="text"
+                label="Name"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter your real name"
+                onInput={inputHandler}
+              />
+              <ImageUpload id="image" center />
+            </Fragment>
           )}
           <Input
             element="input"
