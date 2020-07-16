@@ -19,11 +19,12 @@ const UserPlaceList = (props) => {
 
   return (
     <ul className="place-list">
+      {/* {console.log(props.items)} */}
       {props.items.map((el) => (
         <UserPlaceListItem
           key={el.id}
           id={el.id}
-          image={el.imageUrl}
+          image={el.image}
           title={el.title}
           description={el.description}
           address={el.address}
